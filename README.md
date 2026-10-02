@@ -1,32 +1,75 @@
-# React + TypeScript + Vite
+# Devlingo 🤖
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Plataforma gamificada para aprender programação no estilo Duolingo, com trilhas de Python e JavaScript, desafios interativos, XP, vidas, sequência de dias, ligas e loja.
 
-Currently, two official plugins are available:
+**[Ver online](https://devlingo-dusky.vercel.app)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Trilha de aprendizado | Lição |
+| --- | --- |
+| ![Trilha de aprendizado](docs/screenshots/01-trilha.png) | ![Lição com desafio de múltipla escolha](docs/screenshots/02-licao.png) |
 
-## React Compiler
+## Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Trilhas por linguagem:** "Python do Zero" e "JavaScript Moderno", divididas em unidades e lições que vão sendo desbloqueadas
+- **5 tipos de desafio:**
+  - múltipla escolha
+  - completar a lacuna
+  - achar o bug
+  - montar o código na ordem certa (Parsons)
+  - escrever e rodar código no navegador
+- **Execução de código no navegador:** o JavaScript roda num escopo isolado com o `console` capturado; o Python usa o Pyodide quando ele está carregado e, sem ele, um interpretador simples de `print`, variáveis e contas
+- **Gamificação:** XP, vidas, gemas, sequência de dias com proteção (freeze), missões diárias e conquistas
+- **Ligas e loja:** ranking semanal com zona de promoção e itens para comprar com gemas
+- **Tema claro e escuro e efeitos sonoros**
 
-## Expanding the Oxlint configuration
+## Tecnologias
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+- React 19 + TypeScript + Vite
+- Tailwind CSS 4
+- Zustand para o estado do jogo
+- React Router
+- Framer Motion, canvas-confetti e Howler para animações e sons
+- Supabase (opcional) para login e progresso salvo na nuvem
+- Oxlint
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+## Como rodar
+
+```bash
+git clone https://github.com/yangabriel-dev/Devlingo.git
+cd Devlingo
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Sem configurar nada, o app roda em **modo local**, com os dados de exemplo de `src/data/mockData.ts`.
+
+Para usar o Supabase, copie o `.env.example` para `.env`, preencha `VITE_SUPABASE_URL` e `VITE_SUPABASE_ANON_KEY` e rode o `supabase/schema.sql` no SQL Editor do seu projeto. O arquivo cria as tabelas de perfis, cursos, unidades, lições, desafios e progresso.
+
+| Comando | O que faz |
+| --- | --- |
+| `npm run dev` | roda em modo de desenvolvimento |
+| `npm run build` | checa os tipos e gera o build em `dist/` |
+| `npm run preview` | serve o build localmente |
+| `npm run lint` | roda o Oxlint |
+
+## Estrutura
+
+```
+src/
+├── pages/          # Aprender, Lição, Ligas, Loja e Perfil
+├── components/
+│   ├── lesson/     # um componente para cada tipo de desafio
+│   ├── roadmap/    # trilha, unidades e nós das lições
+│   ├── layout/     # cabeçalho, menu lateral e layout
+│   └── mascot/     # o Devy, mascote do app
+├── store/          # estado do jogo com Zustand
+├── lib/            # executor de código, sons e cliente do Supabase
+├── data/           # cursos, lições e dados de exemplo
+└── types/          # tipos do domínio
+supabase/
+└── schema.sql      # banco de dados completo
+```
+
+## Autor
+
+Feito por **Yan Gabriel** · [LinkedIn](https://www.linkedin.com/in/yangabrieldev/) · [GitHub](https://github.com/yangabriel-dev)
